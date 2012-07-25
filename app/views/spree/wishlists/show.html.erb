@@ -3,10 +3,12 @@
   <% if @wishlist.user == current_user %>
     <div id="manage_wishlist_links">
       <%= link_to t(:edit_wishlist), edit_wishlist_path(@wishlist) %>
+      <br /><br />
     </div>
-    <div><%= render :partial => 'accessibility' %></div>
+    <div><%= render :partial => 'accessibility' %><br /></div>
   <% end -%>
 </div>
+<br /><br />
 <table id="wishlist">
   <thead>
     <tr>
@@ -28,10 +30,10 @@
     <tr class="<%= cycle('', 'alt') %>">
     <% if @wishlist.user == current_user %>
       <td>
-        <%= link_to t(:remove_from_wishlist), wish, :method => :delete %>
+        <%= link_to t(:remove_from_wishlist), wish, :method => :delete %><br /><br />
         <%= form_for :order, :url => populate_orders_url do |f| %>
           <%= hidden_field_tag "variants[#{variant.id}]", 1, :size => 3 %>
-          <%= link_to t(:add_to_cart), '#', :onclick => "$(this).parent().submit(); return false;" %>
+          <%= link_to "Add To Cart »", '#', :onclick => "$(this).parent().submit(); return false;", :style => "font-weight:bold" %>
         <% end %>
         <% if current_user.wishlists.count > 1 %>
           <%= t(:move_to_another_wishlist) %>:
@@ -68,14 +70,17 @@
     <% end -%>
   <% else -%>
     <tr>
-      <td colspan="6"><%= t(:your_wishlist_is_empty) %></td>
+      <td colspan="6">Your wishlist is empty. Check out some products to build a wishlist.</td>
     </tr>
   <% end -%>
   </tbody>
 </table>
 <div class="footer_links" data-hook="wishlist_footer_links">
-<% if @wishlist.user == current_user %>
-  <%= link_to t(:create_new_wishlist), new_wishlist_path %>
-<% end -%>
-<%= link_to t(:continue_shopping), products_path %>
+  <br />
+  <% if @wishlist.user == current_user %>
+    <%= link_to t(:create_new_wishlist), new_wishlist_path %>
+  <% end -%>
+  <div class="right">
+    <%= link_to t(:continue_shopping), root_path %><br /><br />
+  </div>
 </div>

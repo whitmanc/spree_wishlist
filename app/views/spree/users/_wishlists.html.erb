@@ -1,8 +1,13 @@
-<h3><%= t(:my_wishlists) %></h3>
-<ul>
-<% @user.wishlists.each do |wl| %>
-  <% if !wl.is_private? || @user == current_user %>
-  <li><%= link_to wl.name, wl %></li>
+<h3>My Wishlists</h3>
+<% if @user.wishlists.present? %>
+  <ul>
+  <% @user.wishlists.each do |wl| %>
+    <% if !wl.is_private? || @user == current_user %>
+    <li><%= link_to wl.name, wl %></li>
+    <% end -%>
   <% end -%>
-<% end -%>
-</ul>
+  </ul>
+<% else %>
+  <p>Looks like you haven't created a wishlist yet. Check out some products to get started.</p>
+  <br />
+<% end %>
